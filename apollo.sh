@@ -262,6 +262,9 @@ function release() {
   # scripts
   cp -r scripts ${APOLLO_RELEASE_DIR}
 
+  # remove mounted models
+  rm -rf ${APOLLO_RELEASE_DIR}/modules/perception/model/yolo_camera_detector/
+
   # lib
   LIB_DIR="${APOLLO_RELEASE_DIR}/lib"
   mkdir "${LIB_DIR}"
@@ -274,7 +277,6 @@ function release() {
   cp modules/perception/cuda_util/cmake_build/libcuda_util.so $LIB_DIR
 
   # doc
-  cp -r docs "${APOLLO_RELEASE_DIR}"
   cp LICENSE "${APOLLO_RELEASE_DIR}"
   cp third_party/ACKNOWLEDGEMENT.txt "${APOLLO_RELEASE_DIR}"
 
@@ -535,6 +537,7 @@ function print_usage() {
   ${BLUE}build_opt${NONE}: build optimized binary for the code
   ${BLUE}build_gpu${NONE}: run build only with Caffe GPU mode support
   ${BLUE}build_velodyne${NONE}: build velodyne driver
+  ${BLUE}build_lslidar${NONE}: build lslidar driver
   ${BLUE}build_rslidar${NONE}: build rslidar driver
   ${BLUE}build_usbcam${NONE}: build usb camera driver
   ${BLUE}build_opt_gpu${NONE}: build optimized binary with Caffe GPU mode support
@@ -625,6 +628,9 @@ function main() {
       ;;
     build_velodyne)
       build_velodyne
+      ;;
+    build_lslidar)
+      build_lslidar
       ;;
     build_rslidar)
       build_rslidar
